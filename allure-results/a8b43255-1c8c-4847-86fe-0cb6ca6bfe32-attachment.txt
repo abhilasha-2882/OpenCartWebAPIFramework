@@ -1,0 +1,9 @@
+{
+  id: 8507807,
+  name: 'uday',
+  email: 'automation_1781604341429@open.com',
+  gender: 'male',
+  status: 'active'
+}
+201
+Created

@@ -1,0 +1,2 @@
+user registration details are  ravi2: kaushal2:ravi2.kaushal2@gmail.com:2343434:Ravi1234:Ravi1234
+Promise { <pending> }

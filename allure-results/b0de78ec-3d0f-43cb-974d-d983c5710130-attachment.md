@@ -1,0 +1,65 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: api\users.api.indi.spec.ts >> POST-create a user
+- Location: tests\api\users.api.indi.spec.ts:30:1
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 422
+```
+
+# Test source
+
+```ts
+  1  | import { ApiHelper } from "../../src/api/ApiHelper";
+  2  | import {test,expect} from "../../src/fixtures/apifixtures"
+  3  | 
+  4  | const TOKEN=process.env.API_Token!;
+  5  | let  AUTH_HEADER={Authorization: `Bearer ${TOKEN}` };
+  6  | 
+  7  | //Post---get
+  8  | //post--put
+  9  | //post--get
+  10 | //post--delete
+  11 | //create a user 
+  12 | //helper-generic--function -create a fresh user
+  13 | async function createUser(apiHelper:any){
+  14 |   let userData={
+  15 |     name:'Abhilasha API',
+  16 |     email:`automation_${Date.now()}@open.com`,
+  17 |     gender:'femmale',
+  18 |     status:'active'
+  19 | 
+  20 |   };
+  21 |   let response=await apiHelper.post('/public/v2/users',userData,AUTH_HEADER);
+> 22 |   expect(response.status).toBe(201);
+     |                           ^ Error: expect(received).toBe(expected) // Object.is equality
+  23 |   return response.body;
+  24 | 
+  25 | 
+  26 | }
+  27 | 
+  28 | //Test1:create a user +verify:AAA
+  29 | //POST--->userid--->Get/userId-->verify
+  30 | test('POST-create a user',async({apiHelper})=>{
+  31 |  //create a user
+  32 |     let userResponse=await createUser(apiHelper);
+  33 |     let response= await apiHelper.get(`/public/v2/users/${userResponse.id}`,AUTH_HEADER);
+  34 |     expect(response.status).toBe(200);
+  35 |     expect(response.body.name).toBe("Abhilasha API");
+  36 | 
+  37 |       
+  38 | 
+  39 | })
+  40 | 
+```

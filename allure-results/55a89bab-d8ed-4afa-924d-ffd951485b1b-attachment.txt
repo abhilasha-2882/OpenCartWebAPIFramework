@@ -1,0 +1,12 @@
+user credentials pwbatchtest@open.com: pw123
+search key:macbook
+Actual Product Details: Map(8) {
+  'productHeader' => 'MacBook Pro',
+  'productImages' => 4,
+  'Brand' => 'Apple',
+  'Product Code' => 'Product 18',
+  'Reward Points' => '800',
+  'Availability' => 'Out Of Stock',
+  'productPrice' => '$2,000.00',
+  'exTaxPrice' => '$2,000.00'
+}
