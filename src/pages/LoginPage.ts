@@ -2,13 +2,13 @@ import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 //import {BasePage} from "./BasePage"
-export class LoginPage extends BasePage{
+export class LOginPage extends BasePage{
 //Private Locators :
 private readonly emailId :Locator;
 private readonly password :Locator;
 private readonly loginBtn :Locator;
 private readonly forgottenPasswordLink :Locator;
-private readonly logo:Locator;
+//private readonly logo:Locator;
 private readonly loginErrorMessage :Locator;
 constructor(page:Page){
     super(page);
@@ -16,7 +16,7 @@ constructor(page:Page){
  this.password=page.getByRole('textbox',{name:'Password'});
  this.loginBtn=page.getByRole('button',{name:'Login'});
  this.forgottenPasswordLink=page.getByRole('link',{name:'Forgotten Password'}).first();
- this.logo=page.getByAltText('naveenopencart');
+// this.logo=page.getByAltText('naveenopencart');
  this.loginErrorMessage=page.locator('.alert.alert-danger.alert-dismissible');
 
 }
