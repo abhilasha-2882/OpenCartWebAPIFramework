@@ -44,7 +44,7 @@ test('login to app using the wrong credential with Data driven test',async({logi
 });
 //2-without fixtures , parallel mode,read csv data directly and loop the test method row wise..
 
-let testData=csvHelper.readCsv('src/data/loginData.csv');
+let testData=csvHelper.readCsv('src/data/logindata.csv');
 
 for(let row of testData)
 {

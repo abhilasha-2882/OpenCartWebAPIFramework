@@ -8,7 +8,7 @@ import { csvHelper } from '../src/utils/CsvHelper';
    
     })
 
-let testData=csvHelper.readCsv('src/data/RegisterData.csv');
+let testData=csvHelper.readCsv('src/data/Registerdata.csv');
 
 for(let row of testData)
 {
