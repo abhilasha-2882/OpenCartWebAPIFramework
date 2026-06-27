@@ -2,7 +2,7 @@ import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 //import {BasePage} from "./BasePage"
-export class LOginPage extends BasePage{
+export class LoginPage extends BasePage{
 //Private Locators :
 private readonly emailId :Locator;
 private readonly password :Locator;
