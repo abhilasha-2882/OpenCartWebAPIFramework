@@ -44,7 +44,7 @@ export let test =baseTest.extend<pageFixtures>({
  },
 testData :async({},use)=>{
 
-  let testData=csvHelper.readCsv('src/data/loginData.csv');
+  let testData=csvHelper.readCsv('src/data/logindata.csv');
   await use(testData);
 },
 

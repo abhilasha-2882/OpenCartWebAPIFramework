@@ -71,7 +71,7 @@ for(let row of logintestData)
 }
 
 
-let loginJSONData=JsonHelper.readJson('src/data/loginData.json');
+let loginJSONData=JsonHelper.readJson('src/data/logindata.json');
 
 for(let row of loginJSONData)
 {
