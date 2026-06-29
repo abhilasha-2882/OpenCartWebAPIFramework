@@ -58,8 +58,8 @@ jobs:
         env:
           ENV: ${{ github.event.inputs.environment || 'QA' }}
           BASE_URL: ${{ secrets.BASE_URL }}
-          USERNAME_1: ${{ secrets.USERNAME }}
-          PASSWORD_1: ${{ secrets.PASSWORD }}
+          USERNAME_1: ${{ secrets.USERNAME_1 }}
+          PASSWORD_1: ${{ secrets.PASSWORD_1 }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
           API_TOKEN: ${{ secrets.API_TOKEN }}
           OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
