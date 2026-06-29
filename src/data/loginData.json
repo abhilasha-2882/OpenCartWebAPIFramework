@@ -2,7 +2,7 @@
 [
 {
     "username" : "wrong@open.com",
-    "password":"wrong@123"
+    "password":"wrong@1234"
 },
 {
     "username" :"invalid@open.com",
@@ -10,6 +10,6 @@
 },
 {
     "username" :"pwbathes@open.com",
-    "password":"wrong@123"
+    "password":"wrong@1234"
 }
 ]
