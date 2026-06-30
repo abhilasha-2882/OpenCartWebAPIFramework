@@ -42,6 +42,7 @@ async doLogin(username:string, password:string):Promise<void>{
     await this.emailId.fill(username);
     await this.password.fill(password);
     await this.loginBtn.click();
+    await this.page.pause();
 
 }      
 async isInvalidLoginErrorDisplayed():Promise<boolean>

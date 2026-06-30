@@ -2,7 +2,7 @@ import{test, expect} from '../src/fixtures/pagefixture'
 
 test.beforeEach(async({loginpage})=>{  
   await loginpage.goToLoginPage();
-  await loginpage.doLogin('pwtestbatch@open.com','pw123');
+  await loginpage.doLogin('sarah@gmail.com','Gauransh3!');
  
 });
 
