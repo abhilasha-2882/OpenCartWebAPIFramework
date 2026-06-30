@@ -10,7 +10,7 @@ test('intercept and log requests',async({page})=>{
   await route.continue();//url1--capture and continue../..url2---capture----continue..
   });
   
-  await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=common/home');
+  await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=common/home',{ waitUntil: 'domcontentloaded' });
 
 
 })

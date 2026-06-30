@@ -23,7 +23,7 @@ constructor(page:Page){
 
 //public page action(methods)/behaviour
 async goToLoginPage():Promise<void>{
-    await this.page.goto('/opencart/index.php?route=account/login');
+    await this.page.goto('/opencart/index.php?route=account/login',{ waitUntil: 'domcontentloaded' });
 
 }
 
