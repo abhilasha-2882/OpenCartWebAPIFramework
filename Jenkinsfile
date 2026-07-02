@@ -56,7 +56,7 @@ pipeline {
                 dir('dev-app') {
                     git url: 'https://github.com/jglick/simple-maven-project-with-tests.git',
                         branch: 'master'
-                    sh 'mvn clean install -Dmaven.test.failure.ignore=true'
+                    bat 'mvn clean install -Dmaven.test.failure.ignore=true'
                 }
             }
             post {
@@ -77,8 +77,8 @@ pipeline {
                 dir('qa-tests') {
                     git url: 'https://github.com/naveenanimation20/OpenCartWebAPIFramework.git',
                         branch: 'main'
-                    sh 'npm ci'
-                    sh 'npx playwright install --with-deps chromium'
+                    bat 'npm ci'
+                    bat 'npx playwright install --with-deps chromium'
                 }
             }
         }
@@ -204,7 +204,7 @@ pipeline {
                         keepAll: true,
                         alwaysLinkToLastBuild: true
                     ])
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         reportName: 'QA Regression - Allure Report',
                         reportDir: 'reports-qa/allure',
                         reportFiles: 'index.html',
@@ -233,7 +233,7 @@ pipeline {
                 echo "  Running SANITY @smoke on STAGE"
                 echo "========================================="
                 dir('qa-tests') {
-                    sh 'rm -rf allure-results reports'
+                    bat 'rm -rf allure-results reports'
                     withCredentials([
                         usernamePassword(credentialsId: 'stage-credentials',
                             usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
@@ -243,7 +243,7 @@ pipeline {
                         string(credentialsId: 'stage-base-url', variable: 'BASE_URL'),
                         string(credentialsId: 'api-base-url', variable: 'API_BASE_URL')
                     ]) {
-                        sh '''
+                        bat '''
                             ENV=stage \
                             BASE_URL=$BASE_URL \
                             USERNAME=$USERNAME \
@@ -260,17 +260,17 @@ pipeline {
             }
             post {
                 always {
-                    sh 'mkdir -p reports-stage/html reports-stage/allure'
-                    sh 'cp -r qa-tests/reports/html-report/* reports-stage/html/ || true'
-                    sh 'allure generate qa-tests/allure-results --clean -o reports-stage/allure || true'
-                    publishHTML(target: [
+                    bat 'mkdir -p reports-stage/html reports-stage/allure'
+                    bat 'cp -r qa-tests/reports/html-report/* reports-stage/html/ || true'
+                    bat 'allure generate qa-tests/allure-results --clean -o reports-stage/allure || true'
+                    publibatHTML(target: [
                         reportName: 'STAGE Sanity - PW HTML Report',
                         reportDir: 'reports-stage/html',
                         reportFiles: 'index.html',
                         keepAll: true,
                         alwaysLinkToLastBuild: true
                     ])
-                    publishHTML(target: [
+                    publibatHTML(target: [
                         reportName: 'STAGE Sanity - Allure Report',
                         reportDir: 'reports-stage/allure',
                         reportFiles: 'index.html',
@@ -307,7 +307,7 @@ pipeline {
                 echo "  Running SMOKE @smoke on PROD"
                 echo "========================================="
                 dir('qa-tests') {
-                    sh 'rm -rf allure-results reports'
+                    bat 'rm -rf allure-results reports'
                     withCredentials([
                         usernamePassword(credentialsId: 'prod-credentials',
                             usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
@@ -317,7 +317,7 @@ pipeline {
                         string(credentialsId: 'prod-base-url', variable: 'BASE_URL'),
                         string(credentialsId: 'api-base-url', variable: 'API_BASE_URL')
                     ]) {
-                        sh '''
+                        bat '''
                             ENV=prod \
                             BASE_URL=$BASE_URL \
                             USERNAME=$USERNAME \
@@ -334,9 +334,9 @@ pipeline {
             }
             post {
                 always {
-                    sh 'mkdir -p reports-prod/html reports-prod/allure'
-                    sh 'cp -r qa-tests/reports/html-report/* reports-prod/html/ || true'
-                    sh 'allure generate qa-tests/allure-results --clean -o reports-prod/allure || true'
+                    bat 'mkdir -p reports-prod/html reports-prod/allure'
+                    bat 'cp -r qa-tests/reports/html-report/* reports-prod/html/ || true'
+                    bat 'allure generate qa-tests/allure-results --clean -o reports-prod/allure || true'
                     publishHTML(target: [
                         reportName: 'PROD Smoke - PW HTML Report',
                         reportDir: 'reports-prod/html',
