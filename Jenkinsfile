@@ -128,9 +128,9 @@ pipeline {
             }
             post {
                 always {
-                    bat 'mkdir -p reports-dev/html reports-dev/allure'
-                    bat 'cp -r qa-tests/reports/html-report/* reports-dev/html/ || true'
-                    bat 'allure generate qa-tests/allure-results --clean -o reports-dev/allure || true'
+                    bat 'if not exist reports-dev mkdir reports-dev && if not exist reports-dev\\html mkdir reports-dev\\html && if not exist reports-dev\\allure mkdir reports-dev\\allure'
+                    bat 'xcopy /E /I /Y qa-tests\\reports\\html-report\\* reports-dev\\html\\'
+                    bat 'allure generate qa-tests/allure-results --clean -o reports-dev/allure ||  exit /b 0'
                     publishHTML(target: [
                         reportName: 'DEV Sanity - PW HTML Report',
                         reportDir: 'reports-dev/html',
