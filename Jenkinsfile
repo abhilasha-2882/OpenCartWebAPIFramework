@@ -167,11 +167,6 @@ pipeline {
                 echo "  Running REGRESSION (all tests) on QA"
                 echo "========================================="
                 dir('qa-tests') {
-                   steps {
-                echo "========================================="
-                echo "  Running SANITY @smoke on DEV"
-                echo "========================================="
-                dir('qa-tests') {
                     bat 'if exist allure-results rmdir /s /q allure-results'
                     withCredentials([
                         usernamePassword(credentialsId: 'qa-credentials',
