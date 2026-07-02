@@ -129,8 +129,8 @@ pipeline {
             post {
                 always {
                     bat 'if not exist reports-dev mkdir reports-dev && if not exist reports-dev\\html mkdir reports-dev\\html && if not exist reports-dev\\allure mkdir reports-dev\\allure'
-                    bat 'xcopy /E /I /Y qa-tests\\reports\\html-report\\* reports-dev\\html\\'
-                    bat 'allure generate qa-tests/allure-results --clean -o reports-dev/allure ||  exit /b 0'
+                    bat 'xcopy /E /I /Y dev-tests\\reports\\html-report\\* reports-dev\\html\\'
+                    bat 'allure generate dev-tests/allure-results --clean -o reports-dev/allure ||  exit /b 0'
                     publishHTML(target: [
                         reportName: 'DEV Sanity - PW HTML Report',
                         reportDir: 'reports-dev/html',
@@ -167,7 +167,12 @@ pipeline {
                 echo "  Running REGRESSION (all tests) on QA"
                 echo "========================================="
                 dir('qa-tests') {
-                    bat 'rm -rf allure-results reports'
+                   steps {
+                echo "========================================="
+                echo "  Running SANITY @smoke on DEV"
+                echo "========================================="
+                dir('qa-tests') {
+                    bat 'if exist allure-results rmdir /s /q allure-results'
                     withCredentials([
                         usernamePassword(credentialsId: 'qa-credentials',
                             usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
@@ -178,25 +183,25 @@ pipeline {
                         string(credentialsId: 'api-base-url', variable: 'API_BASE_URL')
                     ]) {
                         bat '''
-                            ENV=qa \
-                            BASE_URL=$BASE_URL \
-                            USERNAME=$USERNAME \
-                            PASSWORD=$PASSWORD \
-                            API_BASE_URL=$API_BASE_URL \
-                            API_TOKEN=$API_TOKEN \
-                            OAUTH_CLIENT_ID=$OAUTH_CLIENT_ID \
-                            OAUTH_CLIENT_SECRET=$OAUTH_CLIENT_SECRET \
-                            GRANT_TYPE=client_credentials \
-                            npx playwright test --project=chromium
+                        set ENV=qa 
+                        set BASE_URL=%BASE_URL%
+                        set USERNAME=%USERNAME%
+                        set PASSWORD=%PASSWORD%
+                        set API_BASE_URL=%API_BASE_URL%
+                        set API_TOKEN=%API_TOKEN%
+                        set OAUTH_CLIENT_ID=%OAUTH_CLIENT_ID%
+                        set OAUTH_CLIENT_SECRET=%OAUTH_CLIENT_SECRET%
+                        set GRANT_TYPE=client_credentials
+                        npx playwright test --project=chromium --grep @smoke
                         '''
                     }
                 }
             }
             post {
                 always {
-                    bat 'mkdir -p reports-qa/html reports-qa/allure'
-                    bat 'cp -r qa-tests/reports/html-report/* reports-qa/html/ || true'
-                    bat 'allure generate qa-tests/allure-results --clean -o reports-qa/allure || true'
+                    bat 'if not exist reports-qa mkdir reports-qa && if not exist reports-qa\\html mkdir reports-qa\\html && if not exist reports-qa\\allure mkdir reports-qa\\allure'
+                    bat 'xcopy /E /I /Y qa-tests\\reports\\html-report\\* reports-qa\\html\\'
+                    bat 'allure generate qa-tests/allure-results --clean -o reports-qa/allure ||  exit /b 0'
                     publishHTML(target: [
                         reportName: 'QA Regression - PW HTML Report',
                         reportDir: 'reports-qa/html',
@@ -204,7 +209,7 @@ pipeline {
                         keepAll: true,
                         alwaysLinkToLastBuild: true
                     ])
-                    publibatHTML(target: [
+                    publishHTML(target: [
                         reportName: 'QA Regression - Allure Report',
                         reportDir: 'reports-qa/allure',
                         reportFiles: 'index.html',
