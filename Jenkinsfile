@@ -100,7 +100,7 @@ pipeline {
                 echo "========================================="
                 echo "  Running SANITY @smoke on DEV"
                 echo "========================================="
-                dir('qa-tests') {
+                dir('dev-tests') {
                     bat 'if exist allure-results rmdir /s /q allure-results'
                     withCredentials([
                         usernamePassword(credentialsId: 'dev-credentials',
@@ -129,7 +129,7 @@ pipeline {
             post {
                 always {
                     bat 'if not exist reports-dev mkdir reports-dev && if not exist reports-dev\\html mkdir reports-dev\\html && if not exist reports-dev\\allure mkdir reports-dev\\allure'
-                    bat 'xcopy /E /I /Y dev-tests\\reports\\html-report\\* reports-dev\\html\\'
+                    bat 'xcopy /E /I /Y reports\\html-report\\* ..\\reports-dev\\html\\ || exit /b 0'
                     bat 'allure generate dev-tests/allure-results --clean -o reports-dev/allure ||  exit /b 0'
                     publishHTML(target: [
                         reportName: 'DEV Sanity - PW HTML Report',
