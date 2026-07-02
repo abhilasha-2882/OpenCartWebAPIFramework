@@ -100,7 +100,7 @@ pipeline {
                 echo "========================================="
                 echo "  Running SANITY @smoke on DEV"
                 echo "========================================="
-                dir('dev-tests') {
+                dir('qa-tests') {
                     bat 'if exist allure-results rmdir /s /q allure-results'
                     withCredentials([
                         usernamePassword(credentialsId: 'dev-credentials',
