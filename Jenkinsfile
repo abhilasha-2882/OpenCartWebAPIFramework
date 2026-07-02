@@ -101,7 +101,7 @@ pipeline {
                 echo "  Running SANITY @smoke on DEV"
                 echo "========================================="
                 dir('qa-tests') {
-                    sh 'rm -rf allure-results reports'
+                    bat 'rm -rf allure-results reports'
                     withCredentials([
                         usernamePassword(credentialsId: 'dev-credentials',
                             usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
@@ -111,7 +111,7 @@ pipeline {
                         string(credentialsId: 'dev-base-url', variable: 'BASE_URL'),
                         string(credentialsId: 'api-base-url', variable: 'API_BASE_URL')
                     ]) {
-                        sh '''
+                        bat '''
                             ENV=dev \
                             BASE_URL=$BASE_URL \
                             USERNAME=$USERNAME \
@@ -128,9 +128,9 @@ pipeline {
             }
             post {
                 always {
-                    sh 'mkdir -p reports-dev/html reports-dev/allure'
-                    sh 'cp -r qa-tests/reports/html-report/* reports-dev/html/ || true'
-                    sh 'allure generate qa-tests/allure-results --clean -o reports-dev/allure || true'
+                    bat 'mkdir -p reports-dev/html reports-dev/allure'
+                    bat 'cp -r qa-tests/reports/html-report/* reports-dev/html/ || true'
+                    bat 'allure generate qa-tests/allure-results --clean -o reports-dev/allure || true'
                     publishHTML(target: [
                         reportName: 'DEV Sanity - PW HTML Report',
                         reportDir: 'reports-dev/html',
@@ -167,7 +167,7 @@ pipeline {
                 echo "  Running REGRESSION (all tests) on QA"
                 echo "========================================="
                 dir('qa-tests') {
-                    sh 'rm -rf allure-results reports'
+                    bat 'rm -rf allure-results reports'
                     withCredentials([
                         usernamePassword(credentialsId: 'qa-credentials',
                             usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
@@ -177,7 +177,7 @@ pipeline {
                         string(credentialsId: 'qa-base-url', variable: 'BASE_URL'),
                         string(credentialsId: 'api-base-url', variable: 'API_BASE_URL')
                     ]) {
-                        sh '''
+                        bat '''
                             ENV=qa \
                             BASE_URL=$BASE_URL \
                             USERNAME=$USERNAME \
@@ -194,9 +194,9 @@ pipeline {
             }
             post {
                 always {
-                    sh 'mkdir -p reports-qa/html reports-qa/allure'
-                    sh 'cp -r qa-tests/reports/html-report/* reports-qa/html/ || true'
-                    sh 'allure generate qa-tests/allure-results --clean -o reports-qa/allure || true'
+                    bat 'mkdir -p reports-qa/html reports-qa/allure'
+                    bat 'cp -r qa-tests/reports/html-report/* reports-qa/html/ || true'
+                    bat 'allure generate qa-tests/allure-results --clean -o reports-qa/allure || true'
                     publishHTML(target: [
                         reportName: 'QA Regression - PW HTML Report',
                         reportDir: 'reports-qa/html',
