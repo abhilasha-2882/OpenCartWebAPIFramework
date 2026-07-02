@@ -112,16 +112,16 @@ pipeline {
                         string(credentialsId: 'api-base-url', variable: 'API_BASE_URL')
                     ]) {
                         bat '''
-                            ENV=dev \
-                            BASE_URL=$BASE_URL \
-                            USERNAME=$USERNAME \
-                            PASSWORD=$PASSWORD \
-                            API_BASE_URL=$API_BASE_URL \
-                            API_TOKEN=$API_TOKEN \
-                            OAUTH_CLIENT_ID=$OAUTH_CLIENT_ID \
-                            OAUTH_CLIENT_SECRET=$OAUTH_CLIENT_SECRET \
-                            GRANT_TYPE=client_credentials \
-                            npx playwright test --project=chromium --grep @smoke
+                        set ENV=dev 
+                        set BASE_URL=%BASE_URL%
+                        set USERNAME=%USERNAME%
+                        set PASSWORD=%PASSWORD%
+                        set API_BASE_URL=%API_BASE_URL%
+                        set API_TOKEN=%API_TOKEN%
+                        set OAUTH_CLIENT_ID=%OAUTH_CLIENT_ID%
+                        set OAUTH_CLIENT_SECRET=%OAUTH_CLIENT_SECRET%
+                        set GRANT_TYPE=client_credentials
+                        npx playwright test --project=chromium --grep @smoke
                         '''
                     }
                 }
@@ -245,7 +245,7 @@ pipeline {
                     ]) {
                         bat '''
                             ENV=stage \
-                            BASE_URL=$BASE_URL \
+                            BASE_URL=%BASE_URL% \
                             USERNAME=$USERNAME \
                             PASSWORD=$PASSWORD \
                             API_BASE_URL=$API_BASE_URL \
